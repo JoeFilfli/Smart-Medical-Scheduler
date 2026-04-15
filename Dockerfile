@@ -16,6 +16,8 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # Generate Prisma client and build Next.js
+# DATABASE_URL is not needed at build time — dummy value satisfies Prisma schema validation
+ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
 RUN npx prisma generate
 RUN npm run build
 
